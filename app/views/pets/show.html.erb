@@ -1,0 +1,14 @@
+<h1>Pet#show</h1>
+<% if @pet != nil %>
+	<%= @pet.name %>
+	<%= @pet.person %>
+	<%= @pet.type %>
+	<%= @pet.size %><br /> 
+	<%= @pet.description %>
+	<br />
+	<% @pet.pet_photos.each do |photo| %>
+		<%= photo.image_url(:thumb) %>
+		<%= image_tag photo.image_url(:thumb) %>
+		<br/>
+	<% end %>
+<% end %>

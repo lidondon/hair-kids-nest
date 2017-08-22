@@ -1,0 +1,12 @@
+<% @pets.try(:each) do |pet| %>
+	<%= pet.type.title %>&nbsp;&nbsp;&nbsp;
+	<%= pet.person.name %>&nbsp;&nbsp;&nbsp;
+	<%= pet.sex %>&nbsp;&nbsp;&nbsp;
+	<%= pet.size %>&nbsp;&nbsp;&nbsp;
+	<%= pet.color %>&nbsp;&nbsp;&nbsp;
+	<%= pet.description %>&nbsp;&nbsp;&nbsp;
+	<% pet.pet_photos.each do |photo| %>
+		<%= photo.image_url%>&nbsp;
+	<% end %>
+	<br />
+<% end %>

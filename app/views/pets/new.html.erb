@@ -1,0 +1,13 @@
+<% if notice %>
+	<%= notice %>
+<% end %>
+<%= form_for @pet do |f| %>
+	person: <%= f.collection_select :person_id, Person.all, :id, :name %>
+	type: <%= f.collection_select :type_id, Type.all, :id, :title %>
+	sex: <%= f.text_field :sex %>
+	size: <%= f.text_field :size %>
+	color: <%= f.text_field :size %><br />
+	description: <%= f.text_area :description %><br />
+	<%= f.file_field :image, multiple: true, name: "pet_photos[image][]"%>
+	<%= f.submit "送出" %>
+<% end %>
