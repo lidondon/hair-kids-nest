@@ -1,4 +1,6 @@
 class PetsController < ApplicationController
+	before_action :set_pet, only: [:show]
+
 	def index
   		@pets = Pet.all
   end
@@ -24,6 +26,21 @@ class PetsController < ApplicationController
   		@pet = Pet.new
   		@photos = @pet.pet_photos.build
   end
+
+  def show
+  end
+
+
+
+  private
+
+	def pet_params
+  		params.require(:pet).permit(:person_id, :type_id, :sex, :size, :color, :description, pet_photos_attributes: [:image])
+	end
+
+	def set_pet
+		@pet = Pet.find(params[:id])
+	end
 end
 
 
@@ -33,8 +50,3 @@ end
 
 
 
-private
-
-	def pet_params
-  		params.require(:pet).permit(:person_id, :type_id, :sex, :size, :color, :description, pet_photos_attributes: [:image])
-  end

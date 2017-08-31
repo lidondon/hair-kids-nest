@@ -33,6 +33,7 @@ gem 'mini_magick'
 gem 'figaro'
 gem 'fog-aws'
 gem 'fog'
+gem 'pry-nav'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
