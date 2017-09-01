@@ -4,6 +4,8 @@
 <%= form_for @pet do |f| %>
 	person: <%= f.collection_select :person_id, Person.all, :id, :name %>
 	type: <%= f.collection_select :type_id, Type.all, :id, :title %>
+	region: <%= f.collection_select :region_id, Region.all, :id, :title %><br />
+	sub region: <%= f.text_field :sub_region %>
 	sex: <%= f.text_field :sex %>
 	size: <%= f.text_field :size %>
 	color: <%= f.text_field :size %><br />
