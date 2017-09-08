@@ -2,7 +2,8 @@ class PetsController < ApplicationController
 	before_action :set_pet, only: [:show]
 
 	def index
-  		@pets = Pet.all
+		pa = pet_search_params
+  		@pets = (pa.count > 0) ? Pet.where(pa) : Pet.all
   end
 
   def create
@@ -36,6 +37,26 @@ class PetsController < ApplicationController
 
 	def pet_params
   		params.require(:pet).permit(:person_id, :type_id, :region_id, :sub_region, :sex, :size, :color, :description, pet_photos_attributes: [:image])
+	end
+
+	def pet_search_params
+		result = {}
+		if params[:person_id] 
+			result[:person_id] = params[:person_id].to_i
+		end
+
+		if params[:type_id] 
+			result[:type_id] = params[:type_id].to_i
+		end
+
+		if params[:region_id] 
+			result[:region_id] = params[:region_id].to_i
+		end
+
+		if params[:sex] 
+			result[:sex] = params[:sex]
+		end
+  		result
 	end
 
 	def set_pet
