@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 	root 'pets#index'
 	resources :pets
-	post 'test/test'
+	resources :blacklists
+	get 'client_response/client'
 end

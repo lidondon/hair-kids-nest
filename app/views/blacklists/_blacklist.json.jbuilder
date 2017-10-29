@@ -1,0 +1,1 @@
+json.extract! blacklist, :id, :person_id, :title, :content

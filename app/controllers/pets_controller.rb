@@ -8,18 +8,34 @@ class PetsController < ApplicationController
 
   def create
   		@pet = Pet.new pet_params
+  		source = params[:source]
+  		# binding.pry
+
   		if @pet.save
-  			if params[:pet_photos][:image] != nil
-  				err = params[:product].to_s;
+  			if params[:pet_photos] != nil && params[:pet_photos][:image] != nil
   				params[:pet_photos][:image].each do |img|
   					@pet.pet_photos.create(image: img)
   				end
+  			elsif source
+  				# binding.pry
+  				randPhoto = PetPhoto.all[rand(PetPhoto.count)]
+  				fakePhoto = PetPhoto.new
+  				fakePhoto.image = randPhoto.image
+  				fakePhoto.pet_id = @pet.id
+  				fakePhoto.save
+  				redirect_to controller: :client_response, action: :client, response: :ok
+  			else
+  				flash[:notice] = err
+  				redirect_to new_pet_url
   			end
-  			flash[:notice] = err
-  			redirect_to :new_pet
   		else
-  			flash[:notice] = @pet.errors.messages
-  			render :new_pet
+  			if source
+  				error = @pet.errors.full_messages
+  				redirect_to controller: :client_response, action: :client, response: error
+  			else
+	  			flash[:notice] = @pet.errors.messages
+	  			render new_pet_url
+	  		end
   		end
   end
 
@@ -29,6 +45,10 @@ class PetsController < ApplicationController
   end
 
   def show
+  		unless @pet
+  			pa = Pet.last
+  			redirect_to controller: :client_response, action: :client, response: :error_occurs
+  		end
   end
 
 
@@ -36,7 +56,7 @@ class PetsController < ApplicationController
   private
 
 	def pet_params
-  		params.require(:pet).permit(:person_id, :type_id, :region_id, :sub_region, :sex, :size, :color, :description, pet_photos_attributes: [:image])
+  		params.require(:pet).permit(:person_id, :type_id, :region_id, :sub_region, :sex, :size, :color, :contact_person, :contact_method, :description, pet_photos_attributes: [:image])
 	end
 
 	def pet_search_params
@@ -60,7 +80,11 @@ class PetsController < ApplicationController
 	end
 
 	def set_pet
-		@pet = Pet.find(params[:id])
+		begin
+			@pet = Pet.find(params[:id])
+		rescue 
+			@pet = nil
+		end
 	end
 end
 

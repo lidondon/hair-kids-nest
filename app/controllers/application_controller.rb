@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery except: ['test']
+ 	protect_from_forgery except: [:create, :delete, :update]
 end
