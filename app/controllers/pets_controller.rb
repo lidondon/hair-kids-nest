@@ -4,9 +4,9 @@ class PetsController < ApplicationController
 	def index
 		pa = pet_search_params
   		@pets = (pa.count > 0) ? Pet.where(pa) : Pet.all
-  end
+   end
 
-  def create
+   def create
   		@pet = Pet.new pet_params
   		source = params[:source]
   		# binding.pry

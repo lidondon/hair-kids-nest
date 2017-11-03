@@ -1,0 +1,12 @@
+<h1>Hospital#show</h1>
+<% if @hospital != nil %>
+	<%= @hospital.name %>
+	<%= @hospital.phone %>
+	<%= @hospital.address %>
+	<br />
+	<% @hospital.hospital_photos.each do |photo| %>
+		<%= photo.image_url(:thumb) %>
+		<%= image_tag photo.image_url(:thumb) %>
+		<br/>
+	<% end %>
+<% end %>

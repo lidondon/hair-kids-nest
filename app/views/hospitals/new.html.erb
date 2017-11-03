@@ -1,0 +1,10 @@
+<% if notice %>
+	<%= notice %>
+<% end %>
+<%= form_for @hospital do |f| %>
+	name: <%= f.text_field :name %>
+	phone: <%= f.text_field :phone %>
+	address: <%= f.text_field :address %><br />
+	<%= f.file_field :image, multiple: true, name: "hospital_photos[image][]"%>
+	<%= f.submit "送出" %>
+<% end %>

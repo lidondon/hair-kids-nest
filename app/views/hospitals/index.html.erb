@@ -1,0 +1,9 @@
+<% @hospitals.try(:each) do |hospital| %>
+	<%= hospital.name %>&nbsp;&nbsp;&nbsp;
+	<%= hospital.phone %>&nbsp;&nbsp;&nbsp;
+	<%= hospital.address %>&nbsp;&nbsp;&nbsp;
+	<% hospital.hospital_photos.each do |photo| %>
+		<%= photo.image_url%>&nbsp;
+	<% end %>
+	<br />
+<% end %>
