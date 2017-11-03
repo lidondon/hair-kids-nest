@@ -14,12 +14,12 @@ class HospitalsController < ApplicationController
   					@hospital.hospital_photos.create(image: img)
   				end
   			else
-  				flash[:notice] = err
-  				redirect_to new_pet_url
+  				flash[:notice] = :err
   			end
+  			redirect_to new_hospital_url
   		else
   			flash[:notice] = @pet.errors.messages
-  			render new_pet_url
+  			render new_hospital_url
   		end
   end
 
